@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
 <html lang="en-us">
 
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/rating.css">
+<link rel = "stylesheet" href = "style.css">
 <body>
+	<div class="ui three item menu">
+	  <a href = "/movies" onclick="view.toggleClasses(this)" class="active item">Movies</a>
+	  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
+	  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
+	</div>
 	<h1 class="ui header" id = "detailHeader">
 	</h1>
 	
@@ -20,36 +24,43 @@
 		</div>
 	 </div>
 	 
-	 <div class="ui horizontal list" id = "detailMovieActorList">
-		  <div class="item">
-		    <i class = "fa fa-profile" aria-hidden="true"></i>
-		    <div class="content">
-		      <div class="header">Tom</div>
-		      Top Contributor
-		    </div>
-		  </div>
+	<div class = "actors">
+		<h3 class="ui header"> Actors </h3>
+		<div class="ui horizontal list" id = "actorList">
+	
+		</div>
 	</div>
+	
+	<div class = "actorDetail">
+		<div id = "actorBio">
+	 			
+	 	</div>
+	 	<div id = "actorAge">
+	 			
+	 	</div>
+		
+	</div>
+	
 	 <div class = "movieDetail">
 
-	 
 	 	<div id = "movieDetailRating">
 	 			
 	 	</div>
 	 	
 	 	<div class="ui image label" id = "movieDetailIcon">
 		  <i class="fa fa-film" aria-hidden="true"></i>
-		  Joe
 		</div>
-		
-		
-
 	 </div>
 	 <div class = "genreDetail">
-	 <div class = "actors">
+	 
+	 	<div class = "actors">
 	 	
-	 </div>
+	 	</div>
 	 <div class = "genres">
-	 	
+	 	<h3 class="ui header"> Genres </h3>
+		<div class="ui horizontal list" id = "genreList">
+	
+		</div>
 	 </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
