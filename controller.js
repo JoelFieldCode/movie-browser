@@ -1,5 +1,6 @@
 
-page('/marvel.html', function(){
+page('/movies.html', function(){
+//   view.toggleSearchBoxes("block");
 //   if(model.movies.length > 0){
 //       view.addMovies();
 //       return;
@@ -10,8 +11,10 @@ page('/marvel.html', function(){
 
 // Route for listing all the actors from the API
 page('/actors', function(context){
+  view.toggleSearchBoxes("block");
   document.getElementsByClassName("actors")[0].style.display = "block";
   document.getElementsByClassName("movies")[0].style.display = "none";
+  document.getElementsByClassName("genres")[0].style.display = "none";
   document.getElementsByClassName("movieDetail")[0].style.display = "none";
   document.getElementById("movieDetailIcon").style.display = "none";
   document.getElementsByClassName("actorDetail")[0].style.display = "none";
@@ -21,11 +24,13 @@ page('/actors', function(context){
       view.addActorsList(model.actors);
       return;
   }
+  console.log(page.base())
   database.downloadData(view.addActorsList);
 });
 
 // Route for listing all the genres from the API
 page('/genres', function(context){
+    view.toggleSearchBoxes("block");
     document.getElementById("detailHeader").innerHTML = "";
     document.getElementsByClassName("actors")[0].style.display = "none";
     document.getElementsByClassName("movies")[0].style.display = "none";
@@ -43,6 +48,7 @@ page('/genres', function(context){
 
 // Route for listing all the movies from the API
 page('/movies', function(context){
+    view.toggleSearchBoxes("block");
     document.getElementsByClassName("actors")[0].style.display = "none";
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
@@ -63,6 +69,8 @@ page('/movies', function(context){
 page('/actor/:id', function(context){
     var elements = document.getElementsByClassName("item");
     view.removeMenuSelections(elements);
+    
+    view.toggleSearchBoxes("none");
     
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
@@ -87,6 +95,7 @@ page('/actor/:id', function(context){
 page('/genre/:id', function(context){
     var elements = document.getElementsByClassName("item");
     view.removeMenuSelections(elements);
+    view.toggleSearchBoxes("none");
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
     document.getElementsByClassName("movieDetail")[0].style.display = "none";
@@ -110,6 +119,7 @@ page('/genre/:id', function(context){
 page('/movie/:id', function(context){
     var elements = document.getElementsByClassName("item");
     view.removeMenuSelections(elements);
+    view.toggleSearchBoxes("none");
     document.getElementsByClassName("movies")[0].style.display = "none";
     document.getElementsByClassName("genres")[0].style.display = "none";
     document.getElementsByClassName("actorDetail")[0].style.display = "none";
@@ -127,6 +137,30 @@ page('/movie/:id', function(context){
     database.getMovie(context.params.id,view.loadMovieDetail);
 });
 
-
+page('*', function(context){
+    console.log("here");
+});
 page.start();
+
+var controller = {
+    
+    // User typed into search filter in view, send the text to model for filtering
+    runFilter: function(e,type){
+        var filteredArray = model.filter(e,type);
+        
+        // Apply filter based on which view the input came from
+        
+        if(type === "movies"){ 
+            view.addMovies(filteredArray)
+            return;
+        }
+        
+        if(type === "genres"){ 
+            view.addGenres(filteredArray) 
+            return;
+        }
+        
+        view.addActorsList(filteredArray)
+    }
+}
 

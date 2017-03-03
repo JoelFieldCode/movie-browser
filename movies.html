@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel = "stylesheet" href = "style.css">
+
 <body>
 	<div class="ui three item menu">
 	  <a href = "/movies" onclick="view.toggleClasses(this)" class="active item">Movies</a>
@@ -14,22 +15,6 @@
 	</div>
 	<h1 class="ui header" id = "detailHeader">
 	</h1>
-	
-	 <div class = "movies">
-	 	<h3 class="ui header"> Movies </h3>
-	 	<div class="ui inverted segment">
-		  <div class="ui inverted relaxed divided list" id = "movieListContainer">
-		  	
-		  </div>
-		</div>
-	 </div>
-	 
-	<div class = "actors">
-		<h3 class="ui header"> Actors </h3>
-		<div class="ui horizontal list" id = "actorList">
-	
-		</div>
-	</div>
 	
 	<div class = "actorDetail">
 		<div id = "actorBio">
@@ -41,7 +26,7 @@
 		
 	</div>
 	
-	 <div class = "movieDetail">
+	<div class = "movieDetail">
 
 	 	<div id = "movieDetailRating">
 	 			
@@ -51,17 +36,62 @@
 		  <i class="fa fa-film" aria-hidden="true"></i>
 		</div>
 	 </div>
+	
+	 <div class = "movies">
+		
+	 	<h3 class="ui header"> Movies </h3>
+	 	
+	 	<div class="ui search">
+		  <div class="ui icon input">
+		    <input placeholder="Search for movies..." type="text" name="movies" onkeyup="controller.runFilter(this,'movies')">
+		    <i class="search icon"></i>
+		  </div>
+		</div>
+		
+	 	<div class="ui inverted segment">
+		  <div class="ui inverted relaxed divided list" id = "movieListContainer">
+		  	
+		  </div>
+		</div>
+	 </div>
+	 
+	<div class = "actors">
+		
+		<h3 class="ui header"> Actors </h3>
+		
+		<div class="ui search">
+		  <div class="ui icon input">
+		    <input placeholder="Search for actors..." type="text" name="actors" onkeyup="controller.runFilter(this,'actors')">
+		    <i class="search icon"></i>
+		  </div>
+		</div>
+		
+		<div class="ui horizontal list" id = "actorList">
+	
+		</div>
+	</div>
+
 	 <div class = "genreDetail">
 	 
 	 	<div class = "actors">
 	 	
 	 	</div>
 	 <div class = "genres">
+		
 	 	<h3 class="ui header"> Genres </h3>
+	 	
+	 	<div class="ui search">
+		  <div class="ui icon input">
+		    <input placeholder="Search for genres..." type="text" name="genres" onkeyup="controller.runFilter(this,'genres')">
+		    <i class="search icon"></i>
+		  </div>
+		</div>
+		
 		<div class="ui horizontal list" id = "genreList">
 	
 		</div>
 	 </div>
+<script src = "notifi8.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>

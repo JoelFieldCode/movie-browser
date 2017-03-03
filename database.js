@@ -1,4 +1,5 @@
 var database = {
+  
     // On loadup, get all the genres,movies and actors (general information about each model - not detail view information with relationships etc)
     downloadData : function(callbackFunc){
         axios.all([
@@ -14,7 +15,10 @@ var database = {
               
               // Apply callback given by controller
               callbackFunc(model.movies); 
-          }));
+          }))
+          .catch(function(error){
+              view.dealWithError(error)
+          });
     },
     
     // Return API request for all movies
@@ -41,6 +45,9 @@ var database = {
           
           // Apply callback given by view
           callbackFunc(model.detailMovies[id]);
+      })
+      .catch(function(error){
+        view.dealWithError(error)
       });
     },
     
@@ -54,6 +61,9 @@ var database = {
           // Apply callback given by view
           callbackFunc(model.detailActors[id]);
         })
+        .catch(function(error){
+          view.dealWithError(error)
+        });
     },
     
     // Get a specific genre (by using the name ID) and it's relationships from the API
@@ -66,5 +76,8 @@ var database = {
           // Apply callback given by view
           callbackFunc(model.detailGenres[id]);
         })
+        .catch(function(error){
+          view.dealWithError(error)
+        });
     },
 };

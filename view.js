@@ -11,6 +11,16 @@ var view = {
 
     },
     
+    // Pop up error messages to deal with errors.
+    dealWithError: function(error){
+        if(error.message === "Network Error"){
+            notific8("Network error, please try another time.", { color: 'ruby' });
+            return;
+        }
+        notific8("Coudn't find that actor, movie or genre, please use the links provided on this page", { color: 'ruby' });
+  
+    },
+    
     // Receive one movie, append a item div with href link
     appendMovie : function(movie){
         var fixedMovieUrl = this.fixUrl(movie.name);
@@ -60,6 +70,19 @@ var view = {
                 <i class="fa fa-film" aria-hidden="true"></i>`+genre+`
 		    </a>`;
     },
+    
+    // Hide search boxes when we are in detail view.
+    toggleSearchBoxes: function(type){
+        var allSearches =  document.getElementsByClassName("ui search");
+        var thisSearchEL;
+        for(var searchEL in allSearches){
+            thisSearchEL = allSearches[searchEL];
+            if(thisSearchEL.style === undefined){continue;}
+            
+            thisSearchEL.style.display = type;
+        }
+    },
+    
     //Toggle menu selections
     toggleClasses: function(el){
         var elements = document.getElementsByClassName("item");
@@ -69,6 +92,7 @@ var view = {
         el.classList.add("active");
       
     },
+    
     // Remove menu selections if we are on a detail view( e.g - actor/Robert Downey Jr)
     removeMenuSelections: function(elements){
         for(var element in elements){
@@ -150,7 +174,8 @@ var view = {
                 bio: genre.actors[actorKey].bio
             });
         }
-
+        
+        // Add all the actors from this genre
         view.addActorsList(actorsArray);
     },
     
