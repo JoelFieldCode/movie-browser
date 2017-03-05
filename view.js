@@ -11,6 +11,11 @@ var view = {
 
     },
     
+    // Escape script tags
+    safe_tags : function(str) {
+        return str.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+    },
+    
     // Pop up error messages to deal with errors.
     dealWithError: function(error){
         if(error.message === "Network Error"){
@@ -23,14 +28,14 @@ var view = {
     
     // Receive one movie, append a item div with href link
     appendMovie : function(movie){
-        var fixedMovieUrl = this.fixUrl(movie.name);
+        var fixedMovieUrl = view.safe_tags(this.fixUrl(movie.name));
 
         return `
             <div class = "item">
                 <div class = "content">
                     <a href = /movie/`+fixedMovieUrl+`>
                         <div class ="header">
-                            `+movie.name+`
+                            `+view.safe_tags(movie.name)+`
                         </div>
                     </a>
                     <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+
@@ -57,11 +62,11 @@ var view = {
     
     //Receive a genre, create a label with a href link
     createGenreLabel: function(genre){
-        var genreURL = this.fixUrl(genre);
+        var genreURL = view.safe_tags(this.fixUrl(genre));
         return `
             <div class = "item">
                 <a href = "/genre/`+genreURL+`">
-                    <i class="fa fa-film" aria-hidden="true"></i>`+genre+`
+                    <i class="fa fa-film" aria-hidden="true"></i>`+view.safe_tags(genre)+`
 		        </a>
             </div>`;
     },
@@ -105,19 +110,19 @@ var view = {
     loadMovieDetail: function(movie){
 
         var self = view;
-        var genreURL = self.fixUrl(movie.genre);
+        var genreURL = view.safe_tags(self.fixUrl(movie.genre));
         var movieDetailStr = "";
         
         // Add detail label
         movieDetailStr +=
         `<a href = "/genre/`+genreURL+`">
             <i class="fa fa-film" aria-hidden="true"></i>
-    		 `+movie.genre+`
+    		 `+view.safe_tags(movie.genre)+`
 		</a>
 		`;
 		
         document.getElementById("movieDetailIcon").innerHTML = movieDetailStr;
-        document.getElementById("detailHeader").innerHTML = movie.name;
+        document.getElementById("detailHeader").innerHTML = view.safe_tags(movie.name);
         
         document.getElementById("movieDetailRating").innerHTML = `<i class="fa fa-star" aria-hidden="true"></i>`+movie.rating;
         
@@ -145,10 +150,10 @@ var view = {
             <div class = "item">
                 <i class = "fa fa-profile" aria-hidden="true"></i>
                 <div class="content">
-    		      <a href = "/actor/`+fixedUrl+`">
-    		        <div class="header">`+actor.name+`</div>
+    		      <a href = "/actor/`+view.safe_tags(fixedUrl)+`">
+    		        <div class="header">`+view.safe_tags(actor.name)+`</div>
     		      </a>
-    		      `+actor.bio+`
+    		      `+view.safe_tags(actor.bio)+`
     		    </div>
             </div>
         `;
@@ -156,7 +161,7 @@ var view = {
     
     // Receive a genre, load the detail info for it
     loadGenreDetail: function(genre){
-        document.getElementById("detailHeader").innerHTML = genre.name;
+        document.getElementById("detailHeader").innerHTML = view.safe_tags(genre.name);
         
         // Add all the movies from this genre
         view.addMovies(genre.movies);
@@ -177,10 +182,10 @@ var view = {
     // Receive actor, load detail view for it
     loadActorDetail: function(actor){
 
-        document.getElementById("detailHeader").innerHTML = actor.info.name;
+        document.getElementById("detailHeader").innerHTML = view.safe_tags(actor.info.name);
 
 	 	document.getElementById("actorAge").innerHTML = "Age: "+actor.info.age;
-	 	document.getElementById("actorBio").innerHTML = actor.info.bio;
+	 	document.getElementById("actorBio").innerHTML = view.safe_tags(actor.info.bio);
 	 	
 	 	// Add all the actor's movies
         view.addMovies(actor.movies);
