@@ -1,17 +1,28 @@
-
+// Route for listing all the movies from the API
 page('/movies.html', function(){
-//   view.toggleSearchBoxes("block");
-//   if(model.movies.length > 0){
-//       view.addMovies();
-//       return;
-//   }
-//   database.downloadData(view.addMovies);
-  page.redirect('/movies');
+    view.toggleSearchBoxes("block");
+    document.getElementById("movieSearch").value = "";
+    
+    document.getElementsByClassName("actors")[0].style.display = "none";
+    document.getElementsByClassName("movies")[0].style.display = "block";
+    document.getElementsByClassName("genres")[0].style.display = "none";
+    document.getElementsByClassName("movieDetail")[0].style.display = "none";
+    document.getElementById("movieDetailIcon").style.display = "none"
+    document.getElementsByClassName("actorDetail")[0].style.display = "none";
+    
+    document.getElementById("detailHeader").innerHTML = "";
+    if(model.movies.length > 0){
+        view.addMovies(model.movies);
+        return;
+    }
+    
+    database.downloadData(view.addMovies);
 });
 
 // Route for listing all the actors from the API
 page('/actors', function(context){
   view.toggleSearchBoxes("block");
+  document.getElementById("actorSearch").value = "";
   document.getElementsByClassName("actors")[0].style.display = "block";
   document.getElementsByClassName("movies")[0].style.display = "none";
   document.getElementsByClassName("genres")[0].style.display = "none";
@@ -31,6 +42,7 @@ page('/actors', function(context){
 // Route for listing all the genres from the API
 page('/genres', function(context){
     view.toggleSearchBoxes("block");
+    document.getElementById("genreSearch").value = "";
     document.getElementById("detailHeader").innerHTML = "";
     document.getElementsByClassName("actors")[0].style.display = "none";
     document.getElementsByClassName("movies")[0].style.display = "none";
@@ -44,25 +56,6 @@ page('/genres', function(context){
       return;
   }
   database.downloadData(view.addGenres);
-});
-
-// Route for listing all the movies from the API
-page('/movies', function(context){
-    view.toggleSearchBoxes("block");
-    document.getElementsByClassName("actors")[0].style.display = "none";
-    document.getElementsByClassName("movies")[0].style.display = "block";
-    document.getElementsByClassName("genres")[0].style.display = "none";
-    document.getElementsByClassName("movieDetail")[0].style.display = "none";
-    document.getElementById("movieDetailIcon").style.display = "none"
-    document.getElementsByClassName("actorDetail")[0].style.display = "none";
-    
-    document.getElementById("detailHeader").innerHTML = "";
-    if(model.movies.length > 0){
-        view.addMovies(model.movies);
-        return;
-    }
-    database.downloadData(view.addMovies);
-
 });
 
 // Route for the detail view for an actor

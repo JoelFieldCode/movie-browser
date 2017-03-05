@@ -9,7 +9,7 @@
 
 <body>
 	<div class="ui three item menu">
-	  <a href = "/movies" onclick="view.toggleClasses(this)" class="active item">Movies</a>
+	  <a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>
 	  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
 	  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
 	</div>
@@ -43,7 +43,7 @@
 	 	
 	 	<div class="ui search">
 		  <div class="ui icon input">
-		    <input placeholder="Search for movies..." type="text" name="movies" onkeyup="controller.runFilter(this,'movies')">
+		    <input placeholder="Search for movies..." type="text" name="movies" id = "movieSearch" onkeyup="controller.runFilter(this,'movies')">
 		    <i class="search icon"></i>
 		  </div>
 		</div>
@@ -61,7 +61,7 @@
 		
 		<div class="ui search">
 		  <div class="ui icon input">
-		    <input placeholder="Search for actors..." type="text" name="actors" onkeyup="controller.runFilter(this,'actors')">
+		    <input placeholder="Search for actors..." type="text" name="actors" id = "actorSearch" onkeyup="controller.runFilter(this,'actors')">
 		    <i class="search icon"></i>
 		  </div>
 		</div>
@@ -82,7 +82,7 @@
 	 	
 	 	<div class="ui search">
 		  <div class="ui icon input">
-		    <input placeholder="Search for genres..." type="text" name="genres" onkeyup="controller.runFilter(this,'genres')">
+		    <input placeholder="Search for genres..." type="text" name="genres" id = "genreSearch" onkeyup="controller.runFilter(this,'genres')">
 		    <i class="search icon"></i>
 		  </div>
 		</div>

@@ -33,8 +33,8 @@ var view = {
                             `+movie.name+`
                         </div>
                     </a>
-                    `+movie.rating+ ` - ` +view.createGenreLabel(movie.genre)+`
-                    
+                    <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+
+                    view.createGenreLabel(movie.genre)+`
                 </div>
             </div>
         `;
@@ -64,14 +64,9 @@ var view = {
                     <i class="fa fa-film" aria-hidden="true"></i>`+genre+`
 		        </a>
             </div>`;
-        
-        return `
-            <a href = "/genre/`+genreURL+`">
-                <i class="fa fa-film" aria-hidden="true"></i>`+genre+`
-		    </a>`;
     },
     
-    // Hide search boxes when we are in detail view.
+    // Toggle search box display depending on if we are in detail view.
     toggleSearchBoxes: function(type){
         var allSearches =  document.getElementsByClassName("ui search");
         var thisSearchEL;
@@ -124,7 +119,7 @@ var view = {
         document.getElementById("movieDetailIcon").innerHTML = movieDetailStr;
         document.getElementById("detailHeader").innerHTML = movie.name;
         
-        document.getElementById("movieDetailRating").innerHTML = `Rating : `+movie.rating;
+        document.getElementById("movieDetailRating").innerHTML = `<i class="fa fa-star" aria-hidden="true"></i>`+movie.rating;
         
         // Add the list of actors from this movie
         view.addActorsList(movie.actors);

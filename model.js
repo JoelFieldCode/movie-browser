@@ -13,7 +13,6 @@ var model = {
     detailMovies: {
         
     },
-    
     // Filter and return data based on the given type (e.g movies, actors or genres)
     filter: function(e,type){
         
