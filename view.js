@@ -13,7 +13,12 @@ var view = {
     
     // Escape script tags
     safe_tags : function(str) {
-        return str.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+        var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+        
+        while (SCRIPT_REGEX.test(str)) {
+            str = str.replace(SCRIPT_REGEX, "");
+        }
+        return str;
     },
     
     // Pop up error messages to deal with errors.
