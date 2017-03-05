@@ -132,6 +132,7 @@ page('/movie/:id', function(context){
 
 page('*', function(context){
     console.log("here");
+    page.redirect('/movies.html');
 });
 page.start();
 
