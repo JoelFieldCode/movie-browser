@@ -186,9 +186,8 @@ var view = {
     
     // Receive actor, load detail view for it
     loadActorDetail: function(actor){
-
+        
         document.getElementById("detailHeader").innerHTML = view.safe_tags(actor.info.name);
-
 	 	document.getElementById("actorAge").innerHTML = "Age: "+actor.info.age;
 	 	document.getElementById("actorBio").innerHTML = view.safe_tags(actor.info.bio);
 	 	
