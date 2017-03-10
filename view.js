@@ -4,9 +4,9 @@ var view = {
         var html = "";
 
         movies.forEach(function(movie){
-            html+= view.appendMovie(movie);
+            html+= view.appendGridMovie(movie);
         });
-        var parent = document.getElementById("movieListContainer");
+        var parent = document.getElementById("movieListGridContainer");
         parent.innerHTML = html;
 
     },
@@ -38,7 +38,7 @@ var view = {
         return `
             <div class = "item">
                 <div class = "content">
-                    <a href = /movie/`+fixedMovieUrl+`>
+                    <a href = "/movie/`+fixedMovieUrl+`>
                         <div class ="header">
                             `+view.safe_tags(movie.name)+`
                         </div>
@@ -47,6 +47,31 @@ var view = {
                     view.createGenreLabel(movie.genre)+`
                 </div>
             </div>
+        `;
+    },
+    
+     // Receive one movie, append a item div with href link
+    appendGridMovie : function(movie){
+        var fixedMovieUrl = view.safe_tags(this.fixUrl(movie.name));
+
+        return `
+            <div class="column">
+		        <div class="ui segment">
+		            <a href = /movie/`+fixedMovieUrl+`>
+                        <div class ="header">
+                            `+view.safe_tags(movie.name)+`
+                        </div>
+                        <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+
+                         view.createGenreLabel(movie.genre)+`
+                         <div class="ui small image">
+                             <img class = "movieImage" src = "https://marvel-browser-joelfieldcode.c9users.io/fake-movie-x-men-in-black.jpg">
+                    
+                            </img>
+                        </div>
+                         
+                    </a>
+		        </div>
+		    </div>
         `;
     },
     
@@ -70,9 +95,11 @@ var view = {
         var genreURL = view.safe_tags(this.fixUrl(genre));
         return `
             <div class = "item">
-                <a href = "/genre/`+genreURL+`">
-                    <i class="fa fa-film" aria-hidden="true"></i>`+view.safe_tags(genre)+`
-		        </a>
+                <div class = "genreLabel `+view.safe_tags(genre)+`">
+                    <a href = "/genre/`+genreURL+`">
+                        `+view.safe_tags(genre)+`
+    		        </a>
+    		    </div>
             </div>`;
     },
     
@@ -119,13 +146,8 @@ var view = {
         var movieDetailStr = "";
         
         // Add detail label
-        movieDetailStr +=
-        `<a href = "/genre/`+genreURL+`">
-            <i class="fa fa-film" aria-hidden="true"></i>
-    		 `+view.safe_tags(movie.genre)+`
-		</a>
-		`;
-		
+        movieDetailStr += view.createGenreLabel(movie.genre);
+        
         document.getElementById("movieDetailIcon").innerHTML = movieDetailStr;
         document.getElementById("detailHeader").innerHTML = view.safe_tags(movie.name);
         
@@ -153,7 +175,8 @@ var view = {
         var fixedUrl = this.fixUrl(actor.name);
         return `
             <div class = "item">
-                <i class = "fa fa-profile" aria-hidden="true"></i>
+                <img class="ui avatar image" src="https://marvel-browser-joelfieldcode.c9users.io/tom.jpg">
+                
                 <div class="content">
     		      <a href = "/actor/`+view.safe_tags(fixedUrl)+`">
     		        <div class="header">`+view.safe_tags(actor.name)+`</div>

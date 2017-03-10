@@ -7,12 +7,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel = "stylesheet" href = "style.css">
 
-<body>
-	<div class="ui three item menu">
-	  <a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>
-	  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
-	  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
+<body class="Site">
+  <main class="Site-content">
+  
+	<div class = "ui fixed inverted menu">
+		<div class = "ui container">
+			
+			<a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>
+	  		<a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
+	  		<a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
+		</div>
 	</div>
+	
+	<!--<div class="ui three item menu">-->
+	<!--  <a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>-->
+	<!--  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>-->
+	<!--  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>-->
+	<!--</div>-->
 	<h1 class="ui header" id = "detailHeader">
 	</h1>
 	
@@ -32,7 +43,7 @@
 	 			
 	 	</div>
 	 	
-	 	<div class="ui image label" id = "movieDetailIcon">
+	 	<div id = "movieDetailIcon">
 		  <i class="fa fa-film" aria-hidden="true"></i>
 		</div>
 	 </div>
@@ -48,11 +59,19 @@
 		  </div>
 		</div>
 		
-	 	<div class="ui inverted segment">
-		  <div class="ui inverted relaxed divided list" id = "movieListContainer">
-		  	
+		<div class="ui three column grid" id = "movieListGridContainer">
+		  <div class="column">
+		    <div class="ui segment">
+		    </div>
 		  </div>
-		</div>
+		 </div>
+		  
+		
+	 <!--	<div class="ui inverted segment">-->
+		<!--  <div class="ui inverted relaxed divided list" id = "movieListContainer">-->
+		  	
+		<!--  </div>-->
+		<!--</div>-->
 	 </div>
 	 
 	<div class = "actors">
@@ -91,6 +110,25 @@
 	
 		</div>
 	 </div>
+</main> 
+<footer>
+	<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+      <div class="ui stackable inverted divided grid">
+       
+      </div>
+      <div class="ui inverted section divider"></div>
+      <div class="ui horizontal inverted small divided link list">
+        <a class="item">Site Map</a>
+        <a class="item">Contact Us</a>
+        <a class="item">Terms and Conditions</a>
+        <a class="item">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+	 
 	 
 <script src = "notifi8.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
