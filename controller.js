@@ -3,6 +3,7 @@ page('/movies.html', function(){
     view.toggleSearchBoxes("block");
     document.getElementById("movieSearch").value = "";
     
+    document.getElementById("movieListHeader").innerHTML = "";
     document.getElementsByClassName("actors")[0].style.display = "none";
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
@@ -23,6 +24,7 @@ page('/movies.html', function(){
 page('/actors', function(context){
   view.toggleSearchBoxes("block");
   document.getElementById("actorSearch").value = "";
+  document.getElementById("actorListHeader").innerHTML = "";
   document.getElementsByClassName("actors")[0].style.display = "block";
   document.getElementsByClassName("movies")[0].style.display = "none";
   document.getElementsByClassName("genres")[0].style.display = "none";
@@ -65,6 +67,7 @@ page('/actor/:id', function(context){
     
     view.toggleSearchBoxes("none");
     
+    document.getElementById("movieListHeader").innerHTML = "Movies from this actor:"
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
     document.getElementsByClassName("actors")[0].style.display = "none";
@@ -89,6 +92,8 @@ page('/genre/:id', function(context){
     var elements = document.getElementsByClassName("item");
     view.removeMenuSelections(elements);
     view.toggleSearchBoxes("none");
+    document.getElementById("actorListHeader").innerHTML = "Actors in this genre:";
+    document.getElementById("movieListHeader").innerHTML = "Movies from this genre:";
     document.getElementsByClassName("movies")[0].style.display = "block";
     document.getElementsByClassName("genres")[0].style.display = "none";
     document.getElementsByClassName("movieDetail")[0].style.display = "none";
@@ -113,6 +118,7 @@ page('/movie/:id', function(context){
     var elements = document.getElementsByClassName("item");
     view.removeMenuSelections(elements);
     view.toggleSearchBoxes("none");
+    document.getElementById("actorListHeader").innerHTML = "Actors in this movie:";
     document.getElementsByClassName("movies")[0].style.display = "none";
     document.getElementsByClassName("genres")[0].style.display = "none";
     document.getElementsByClassName("actorDetail")[0].style.display = "none";

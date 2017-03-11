@@ -4,9 +4,9 @@ var view = {
         var html = "";
 
         movies.forEach(function(movie){
-            html+= view.appendGridMovie(movie);
+            html+= view.appendListMovie(movie);
         });
-        var parent = document.getElementById("movieListGridContainer");
+        var parent = document.getElementById("movieListItemContainer");
         parent.innerHTML = html;
 
     },
@@ -31,49 +31,39 @@ var view = {
   
     },
     
-    // Receive one movie, append a item div with href link
-    appendMovie : function(movie){
+    // Receive movie, append to list
+    appendListMovie: function(movie){
         var fixedMovieUrl = view.safe_tags(this.fixUrl(movie.name));
-
+        
         return `
-            <div class = "item">
-                <div class = "content">
-                    <a href = "/movie/`+fixedMovieUrl+`>
-                        <div class ="header">
-                            `+view.safe_tags(movie.name)+`
-                        </div>
-                    </a>
-                    <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+
-                    view.createGenreLabel(movie.genre)+`
-                </div>
-            </div>
-        `;
+		  <div class="item">
+		    <div class="ui small image">
+		      <img src="https://marvel-browser-joelfieldcode.c9users.io/fake-movie-x-men-in-black.jpg">
+		    </div>
+		    <div class="content">
+		      <a href = "/movie/`+fixedMovieUrl+`" class="header">`+view.safe_tags(movie.name)+`</a>
+		      <div class="description">
+		        <p>
+		            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+		            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+		            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+		            It has survived not only five centuries, but also the leap into electronic typesetting,
+		            remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets
+		            containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
+		            including versions of Lorem Ipsum.
+		        </p>
+		      </div>
+		      <div class="extra">
+		        <div class="ui label">
+		            <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+`
+		        </div>
+		        `+view.createGenreLabel(movie.genre)+`
+		    </div>
+		  </div>
+		</div>
+		`;
     },
     
-     // Receive one movie, append a item div with href link
-    appendGridMovie : function(movie){
-        var fixedMovieUrl = view.safe_tags(this.fixUrl(movie.name));
-
-        return `
-            <div class="column">
-		        <div class="ui segment">
-		            <a href = /movie/`+fixedMovieUrl+`>
-                        <div class ="header">
-                            `+view.safe_tags(movie.name)+`
-                        </div>
-                        <i class="fa fa-star" aria-hidden="true"></i> `+movie.rating+
-                         view.createGenreLabel(movie.genre)+`
-                         <div class="ui small image">
-                             <img class = "movieImage" src = "https://marvel-browser-joelfieldcode.c9users.io/fake-movie-x-men-in-black.jpg">
-                    
-                            </img>
-                        </div>
-                         
-                    </a>
-		        </div>
-		    </div>
-        `;
-    },
     
     // Receive list of genres, create a list
     addGenres: function(genres){
@@ -152,6 +142,7 @@ var view = {
         document.getElementById("detailHeader").innerHTML = view.safe_tags(movie.name);
         
         document.getElementById("movieDetailRating").innerHTML = `<i class="fa fa-star" aria-hidden="true"></i>`+movie.rating;
+        
         
         // Add the list of actors from this movie
         view.addActorsList(movie.actors);

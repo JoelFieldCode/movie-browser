@@ -7,6 +7,17 @@ a{
 a:hover{
     color: #FFF;
 }
+.ui.divided.items > .item:last-child{
+    margin-bottom: 15px;
+}
+.ui.divided.items{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.ui.label{
+    background: #FFF;
+    font-size: 14px;
+}
 i.fa.fa-star {
     color: gold;
 }
@@ -48,10 +59,21 @@ i.fa.fa-film{
     padding: 10px;
     border-radius: 25px;
 }
+#actorList{
+    margin-top: 10px;
+}
+#movieDetailImage{
+    margin-bottom: 10px;
+}
+#movieDetailRating{
+    display: inline-block;
+    margin: 10px;
+}
 .actors{
     margin-left: 10px;
     display: none;
     margin-top: 20px;
+    margin-bottom: 5%;
 }
 .actorDetail{
     margin-left: 10px;
