@@ -1,30 +1,16 @@
 var database = {
 
-    // On loadup, get all the genres,movies and actors (general information about each model - not detail view information with relationships etc)
-    downloadData : function(callbackFunc){
-        axios.all([
-            database.getMovies(),
-            database.getGenres(),
-            database.getActors()
-          ])
-          .then(axios.spread(function (movies, genres, actors) {
-              // Assign movies,genres and actors to the model;
-              model.movies = movies.data.slice();
-              model.genres = genres.data.slice();
-              model.actors = actors.data.slice();
+    dealWithError: function(error){
+        if(error.message === "Network Error"){
+            notific8("Network error, please try another time.", { color: 'ruby' });
+            return;
+        }
+        notific8("Coudn't find that actor, movie or genre, please use the links provided on this page", { color: 'ruby' });
 
-              // Apply callback given by controller
-              callbackFunc(model.movies);
-          }))
-          .catch(function(error){
-              view.dealWithError(error)
-          });
     },
-
     // Return API request for all movies
     getMovies : function(){
         axios.get(auth.allMovies).then(function(movies){
-
           mainController.movies = movies.data;
         });
     },
@@ -49,40 +35,33 @@ var database = {
       axios.get(auth.allMovies+'/'+id)
         .then(function(response) {
           // Save this key & data locally so we don't have to get it again for this movie
-          mainController.movie = response.data;
+          mainController.detailMovie = response.data;
+
       })
       .catch(function(error){
-        view.dealWithError(error)
-      });
+        this.dealWithError(error)
+      }.bind(this));
     },
 
     // Get a specific actor (by using the name ID) and it's relationships from the API
-    getActor: function(id, callbackFunc){
+    getActor: function(id){
       axios.get(auth.allActors+'/'+id)
         .then(function(response) {
-          // Save this key & data locally so we don't have to get it again for this actor
-
-          model.detailActors[id] = response.data;
-          // Apply callback given by view
-          callbackFunc(model.detailActors[id]);
+          mainController.detailActor = response.data;
         })
         .catch(function(error){
-          view.dealWithError(error)
-        });
+          this.dealWithError(error)
+        }.bind(this));
     },
 
     // Get a specific genre (by using the name ID) and it's relationships from the API
-    getGenre: function(id, callbackFunc){
+    getGenre: function(id){
       axios.get(auth.allGenres+'/'+id)
         .then(function(response) {
-          // Save this key & data locally so we don't have to get it again for this genre
-          model.detailGenres[id] = response.data;
-
-          // Apply callback given by view
-          callbackFunc(model.detailGenres[id]);
+          mainController.detailGenre = response.data;
         })
         .catch(function(error){
-          view.dealWithError(error)
-        });
+          this.dealWithError(error)
+        }.bind(this));
     },
 };

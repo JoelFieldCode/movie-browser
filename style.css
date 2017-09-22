@@ -24,6 +24,9 @@ i.fa.fa-star {
 i.fa.fa-film{
     color: #16a085;
 }
+#genreList{
+  font-size: 16px;
+}
 .column{
     background-color: #bdc3c7;
 }
@@ -76,9 +79,18 @@ i.fa.fa-film{
 }
 .actorDetail{
     margin-left: 10px;
+    margin-top: 100px !important;
 }
 .movieDetail{
     margin-left: 10px;
+    margin-top: 100px !important;
+}
+.genreDetail{
+  margin-left: 10px;
+  margin-top: 100px !important;
+}
+.actor-name{
+  color: black !important;
 }
 .genres{
     margin-left: 10px;

@@ -1,3 +1,8 @@
+
+Vue.component('movie-component', movieComponent);
+Vue.component('actor-component', actorComponent);
+Vue.component('genre-component', genreComponent);
+
 var mainController = new Vue({
   el: "#main-controller",
 
@@ -7,6 +12,7 @@ var mainController = new Vue({
       searchFilter: "",
       actors: [],
       genres: [],
+      showingList: true,
       detailMovie: {},
       detailActor: {},
       detailGenre: {},
@@ -24,61 +30,93 @@ var mainController = new Vue({
       if(this.showing === 'actors'){
         return "Search for actors..";
       }
+
+      if(this.showing === 'genres'){
+        return "Search for genres..";
+      }
     }
 
   },
 
+  filters: {
+
+    fixUrl: function(value){
+        return value.replace(/ /g, "%20");
+    },
+  },
+
   methods: {
 
+    getPrimaryNavClass: function(key){
+
+      if(this.showing === 'genres' || this.showing === 'genre_detail'){
+        if(key === 'genres'){
+          return {
+            'active': true
+          };
+        }
+      }
+
+      if(this.showing === 'movies' || this.showing === 'movie_detail'){
+        if(key === 'movies'){
+          return {
+            'active': true
+          };
+        }
+      }
+
+      if(this.showing === 'actors' || this.showing === 'actor_detail'){
+        if(key === 'actors'){
+          return {
+            'active': true
+          };
+        }
+      }
+
+      return {
+        'active': false
+      };
+
+    },
+
     getMovies: function(){
-      this.showing = "movies"
+      this.showing = "movies";
+      this.searchFilter = "";
+      this.showingList = true;
       database.getMovies();
     },
 
     getMovie: function(id){
       this.showing = "movie_detail";
+      this.showingList = false;
       database.getMovie(id);
     },
 
     getActors: function(){
       this.showing = "actors";
+      this.searchFilter = "";
+      this.showingList = true;
       database.getActors();
+    },
+
+    getActor: function(id){
+      this.showing = "actor_detail";
+      this.showingList = false;
+      database.getActor(id);
     },
 
     getGenres: function(){
       this.showing = "genres";
+      this.searchFilter = "";
+      this.showingList = true;
       database.getGenres();
     },
+
+    getGenre: function(id){
+      this.showing = "genre_detail";
+      this.showingList = false;
+      database.getGenre(id);
+    },
+
   },
-
-  components: {
-    'movie-component' : movieComponent,
-    'actor-component' : actorComponent
-  }
-
 });
-
-var model = {
-    movies : [],
-    genres: [],
-    actors: [],
-
-    // Unique key values for genres, actors and movies. By saving the key we don't have to make another AJAX request.
-    detailGenres : {
-
-    },
-    detailActors : {
-
-    },
-    detailMovies: {
-
-    },
-    // Filter and return data based on the given type (e.g movies, actors or genres)
-    filter: function(e,type){
-
-        return this[type].filter(function(d){
-            return d.name.toLowerCase().indexOf(e.value.toLowerCase()) > -1;
-        });
-
-    },
-};

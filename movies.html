@@ -14,20 +14,14 @@
 	<div class = "ui fixed inverted menu">
 		<div class = "ui container">
 
-			<a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>
-	  		<a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
-	  		<a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
+			<a href = "/movies.html" v-bind:class="getPrimaryNavClass('movies')" class="item">Movies</a>
+	  		<a href = "/genres" v-bind:class="getPrimaryNavClass('genres')" class="item">Genres</a>
+	  		<a href = "/actors" v-bind:class="getPrimaryNavClass('actors')" class="item">Actors</a>
 		</div>
 	</div>
 
-	<!--<div class="ui three item menu">-->
-	<!--  <a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>-->
-	<!--  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>-->
-	<!--  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>-->
-	<!--</div>-->
-
   <div class = "main-container">
-      <div class="ui search">
+      <div class="ui search" v-show="showingList">
         <div class="ui icon input">
           <input placeholder={{placeHolder}} type="text" v-model="searchFilter">
           <i class="search icon"></i>
@@ -35,19 +29,13 @@
       </div>
 
   	<div class = "actorDetail" v-show = "showing === 'actor_detail'">
+      <actor-component detail="true" :actor = "detailActor">
 
-
-  		<div id = "actorBio">
-
-  	 	</div>
-  	 	<div id = "actorAge">
-
-  	 	</div>
-
+      </actor-component>
   	</div>
 
-  	<div class = "movieDetail" v-show = "showing === 'movie_detail'">
-      <movie-component :movie = "movie">
+  	<div class = "movieDetail ui divided items" v-show = "showing === 'movie_detail'">
+      <movie-component :movie = "detailMovie" detail="true">
 
       </movie-component>
   	 </div>
@@ -58,7 +46,7 @@
 
   	 	<div class="ui divided items" id = "movieListItemContainer">
         <template v-for="movie in movies | filterBy searchFilter">
-          <movie-component :movie = "movie">
+          <movie-component :movie = "movie" detail="false">
 
           </movie-component>
         </template>
@@ -72,34 +60,27 @@
 
   		<div class="ui horizontal list" id = "actorList">
         <template v-for="actor in actors | filterBy searchFilter">
-          <actor-component :actor = "actor">
+          <actor-component detail="false" :actor = "actor">
 
           </actor-component>
         </template>
   		</div>
   	</div>
 
+    <div class="ui horizontal list" id = "genreList" v-show = "showing === 'genres'">
+      <template v-for="genre in genres | filterBy searchFilter">
+        <genre-component :genre="genre" detail="false">
+
+        </genre-component>
+      </template>
+    </div>
+
   	 <div class = "genreDetail" v-show = "showing === 'genre_detail'">
+        <genre-component :genre="detailGenre" detail="true">
 
-      	 	<div class = "actors">
-
-      	 	</div>
-      	 <div class = "genres">
-
-      	 	<h3 class="ui header"></h3>
-
-      	 	<div class="ui search">
-      		  <div class="ui icon input">
-      		    <input placeholder="Search for genres..." type="text" name="genres" id = "genreSearch" onkeyup="controller.runFilter(this,'genres')">
-      		    <i class="search icon"></i>
-      		  </div>
-    		</div>
-
-      		<div class="ui horizontal list" id = "genreList">
-
-      		</div>
-    	 </div>
+        </genre-component>
      </div>
+
  </div>
 
 </main>
@@ -121,17 +102,18 @@
 </footer>
 </body>
 
-
 <script src = "notifi8.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src = "page.js"></script>
 <script src = "auth.js"></script>
+<script src = "mixins.js"> </script>
 <script src = "movieComponent.js"></script>
 <script src = "actorComponent.js"></script>
+<script src = "genreComponent.js"></script>
 <script src = "model.js"></script>
-<script src = "view.js"></script>
 <script src = "database.js"></script>
 <script src = "controller.js"></script>
+
 
 </body>
 </html>

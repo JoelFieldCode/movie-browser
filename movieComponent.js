@@ -1,15 +1,29 @@
 var movieComponent = Vue.extend({
-  props: ['movie'],
+  props: ['movie','detail'],
+
+  mixins: [detailMixin],
+
+  methods: {
+
+      getGenre: function(genre){
+        return {
+          name: genre
+        };
+
+      }
+  },
 
   template: `
 
       <div class="item">
+
         <div class="ui small image">
-          <img src="fake-movie-x-men-in-black.jpg">
+          <img src="../fake-movie-x-men-in-black.jpg">
         </div>
         <div class="content">
 
           <a href = "/movie/{{movie.name}}" class="header"> {{movie.name}}</a>
+
           <div class="description">
             <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -25,9 +39,27 @@ var movieComponent = Vue.extend({
             <div class="ui label">
                 <i class="fa fa-star" aria-hidden="true"></i> {{movie.rating}}
             </div>
-            {{movie.genre}}
+
+            <genre-component :genre="getGenre(movie.genre)" detail="false">
+
+            </genre-component>
+
         </div>
       </div>
     </div>
+
+    <div class = "actors" v-show = "detailChecker">
+
+      <h3 class="ui header" id = "actorListHeader"></h3>
+
+      <div class="ui horizontal list" id = "actorList">
+        <template v-for="actor in movie.actors">
+          <actor-component detail="false" :actor = "actor">
+
+          </actor-component>
+        </template>
+      </div>
+    </div>
+
   `
 })

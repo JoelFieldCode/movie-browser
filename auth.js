@@ -1,4 +1,4 @@
-var baseURL = "https://movie-api-joelfieldcode.c9users.io/movieAPI/public/"; // base API URL, change as needed. 
+var baseURL = "https://movie-api-joelfieldcode.c9users.io/movieAPI/public/"; // base API URL, change as needed.
 // Though I'll keep this server running so you can use it without setting up the API locally yourself.
 
 var auth = {
