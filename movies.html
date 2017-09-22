@@ -6,124 +6,108 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel = "stylesheet" href = "style.css">
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"> </script>
 
-<body class="Site">
+<body class="Site" id = "main-controller">
   <main class="Site-content">
-  
+
 	<div class = "ui fixed inverted menu">
 		<div class = "ui container">
-			
+
 			<a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>
 	  		<a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>
 	  		<a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>
 		</div>
 	</div>
-	
+
 	<!--<div class="ui three item menu">-->
 	<!--  <a href = "/movies.html" onclick="view.toggleClasses(this)" class="active item">Movies</a>-->
 	<!--  <a href = "/genres"onclick="view.toggleClasses(this)" class="item">Genres</a>-->
 	<!--  <a href = "/actors" onclick="view.toggleClasses(this)" class="item">Actors</a>-->
 	<!--</div>-->
-	<h1 class="ui header" id = "detailHeader">
-	</h1>
-	
-	<div class = "actorDetail">
-		<img class="ui small circular image" src="https://marvel-browser-joelfieldcode.c9users.io/leo.jpg">
-		
-		<div id = "actorBio">
-	 			
-	 	</div>
-	 	<div id = "actorAge">
-	 			
-	 	</div>
-		
-	</div>
-	
-	<div class = "movieDetail">
-		<div id = "movieDetailImage">
-			<img class="ui medium image" src="https://marvel-browser-joelfieldcode.c9users.io/fake-movie-x-men-in-black.jpg">
-		</div>
-	 	<div id = "movieDetailRating">
-	 			
-	 	</div>
-	 	
-	 	<div id = "movieDetailIcon">
-		  <i class="fa fa-film" aria-hidden="true"></i>
-		</div>
-		
-	 </div>
-	
-	 <div class = "movies">
-	 	<h3 class="ui header" id = "movieListHeader"></h3>
-	 	
-	 	<div class="ui search">
-		  <div class="ui icon input">
-		    <input placeholder="Search for movies..." type="text" name="movies" id = "movieSearch" onkeyup="controller.runFilter(this,'movies')">
-		    <i class="search icon"></i>
-		  </div>
-		</div>
-		
-	 	<div class="ui divided items" id = "movieListItemContainer">
-		  
-		</div>
-		
-		<!--<div class="ui three column grid" id = "movieListGridContainer">-->
-		<!--  <div class="column">-->
-		<!--    <div class="ui segment">-->
-		<!--    </div>-->
-		<!--  </div>-->
-		<!-- </div>-->
-		  
-		
-	 <!--	<div class="ui inverted segment">-->
-		<!--  <div class="ui inverted relaxed divided list" id = "movieListContainer">-->
-		  	
-		<!--  </div>-->
-		<!--</div>-->
-	 </div>
-	 
-	<div class = "actors">
-		
-		<h3 class="ui header" id = "actorListHeader"></h3>
-		
-		<div class="ui search">
-		  <div class="ui icon input">
-		    <input placeholder="Search for actors..." type="text" name="actors" id = "actorSearch" onkeyup="controller.runFilter(this,'actors')">
-		    <i class="search icon"></i>
-		  </div>
-		</div>
-		
-		<div class="ui horizontal list" id = "actorList">
-	
-		</div>
-	</div>
 
-	 <div class = "genreDetail">
-	 
-	 	<div class = "actors">
-	 	
-	 	</div>
-	 <div class = "genres">
-		
-	 	<h3 class="ui header"></h3>
-	 	
-	 	<div class="ui search">
-		  <div class="ui icon input">
-		    <input placeholder="Search for genres..." type="text" name="genres" id = "genreSearch" onkeyup="controller.runFilter(this,'genres')">
-		    <i class="search icon"></i>
-		  </div>
-		</div>
-		
-		<div class="ui horizontal list" id = "genreList">
-	
-		</div>
-	 </div>
-</main> 
+  <div class = "main-container">
+      <div class="ui search">
+        <div class="ui icon input">
+          <input placeholder={{placeHolder}} type="text" v-model="searchFilter">
+          <i class="search icon"></i>
+        </div>
+      </div>
+
+  	<div class = "actorDetail" v-show = "showing === 'actor_detail'">
+
+
+  		<div id = "actorBio">
+
+  	 	</div>
+  	 	<div id = "actorAge">
+
+  	 	</div>
+
+  	</div>
+
+  	<div class = "movieDetail" v-show = "showing === 'movie_detail'">
+      <movie-component :movie = "movie">
+
+      </movie-component>
+  	 </div>
+
+  	 <div class = "movies" v-show = "showing === 'movies'">
+
+  	 	<h3 class="ui header" id = "movieListHeader"> Movies</h3>
+
+  	 	<div class="ui divided items" id = "movieListItemContainer">
+        <template v-for="movie in movies | filterBy searchFilter">
+          <movie-component :movie = "movie">
+
+          </movie-component>
+        </template>
+  		</div>
+  	 </div>
+
+  	<div class = "actors" v-show = "showing === 'actors'">
+
+  		<h3 class="ui header" id = "actorListHeader"></h3>
+
+
+  		<div class="ui horizontal list" id = "actorList">
+        <template v-for="actor in actors | filterBy searchFilter">
+          <actor-component :actor = "actor">
+
+          </actor-component>
+        </template>
+  		</div>
+  	</div>
+
+  	 <div class = "genreDetail" v-show = "showing === 'genre_detail'">
+
+      	 	<div class = "actors">
+
+      	 	</div>
+      	 <div class = "genres">
+
+      	 	<h3 class="ui header"></h3>
+
+      	 	<div class="ui search">
+      		  <div class="ui icon input">
+      		    <input placeholder="Search for genres..." type="text" name="genres" id = "genreSearch" onkeyup="controller.runFilter(this,'genres')">
+      		    <i class="search icon"></i>
+      		  </div>
+    		</div>
+
+      		<div class="ui horizontal list" id = "genreList">
+
+      		</div>
+    	 </div>
+     </div>
+ </div>
+
+</main>
 <footer>
 	<div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
       <div class="ui stackable inverted divided grid">
-       
+
       </div>
       <div class="ui inverted section divider"></div>
       <div class="ui horizontal inverted small divided link list">
@@ -136,12 +120,14 @@
   </div>
 </footer>
 </body>
-	 
-	 
+
+
 <script src = "notifi8.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src = "page.js"></script>
 <script src = "auth.js"></script>
+<script src = "movieComponent.js"></script>
+<script src = "actorComponent.js"></script>
 <script src = "model.js"></script>
 <script src = "view.js"></script>
 <script src = "database.js"></script>

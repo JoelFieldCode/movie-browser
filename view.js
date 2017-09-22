@@ -10,17 +10,17 @@ var view = {
         parent.innerHTML = html;
 
     },
-    
+
     // Escape script tags
     safe_tags : function(str) {
         var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
-        
+
         while (SCRIPT_REGEX.test(str)) {
             str = str.replace(SCRIPT_REGEX, "");
         }
         return str;
     },
-    
+
     // Pop up error messages to deal with errors.
     dealWithError: function(error){
         if(error.message === "Network Error"){
@@ -28,17 +28,17 @@ var view = {
             return;
         }
         notific8("Coudn't find that actor, movie or genre, please use the links provided on this page", { color: 'ruby' });
-  
+
     },
-    
+
     // Receive movie, append to list
     appendListMovie: function(movie){
         var fixedMovieUrl = view.safe_tags(this.fixUrl(movie.name));
-        
+
         return `
 		  <div class="item">
 		    <div class="ui small image">
-		      <img src="https://marvel-browser-joelfieldcode.c9users.io/fake-movie-x-men-in-black.jpg">
+		      <img src="fake-movie-x-men-in-black.jpg">
 		    </div>
 		    <div class="content">
 		      <a href = "/movie/`+fixedMovieUrl+`" class="header">`+view.safe_tags(movie.name)+`</a>
@@ -63,23 +63,23 @@ var view = {
 		</div>
 		`;
     },
-    
-    
+
+
     // Receive list of genres, create a list
     addGenres: function(genres){
         var self = view;
         var parent = document.getElementById("genreList");
-        
+
         genresHTML = "";
-        
+
         genres.forEach(function(genre){
             genresHTML += self.createGenreLabel(genre.name);
         });
-        
-        
+
+
         parent.innerHTML = genresHTML;
     },
-    
+
     //Receive a genre, create a label with a href link
     createGenreLabel: function(genre){
         var genreURL = view.safe_tags(this.fixUrl(genre));
@@ -92,7 +92,7 @@ var view = {
     		    </div>
             </div>`;
     },
-    
+
     // Toggle search box display depending on if we are in detail view.
     toggleSearchBoxes: function(type){
         var allSearches =  document.getElementsByClassName("ui search");
@@ -100,21 +100,21 @@ var view = {
         for(var searchEL in allSearches){
             thisSearchEL = allSearches[searchEL];
             if(thisSearchEL.style === undefined){continue;}
-            
+
             thisSearchEL.style.display = type;
         }
     },
-    
+
     //Toggle menu selections
     toggleClasses: function(el){
         var elements = document.getElementsByClassName("item");
         var self = view;
         self.removeMenuSelections(elements);
-        
+
         el.classList.add("active");
-      
+
     },
-    
+
     // Remove menu selections if we are on a detail view( e.g - actor/Robert Downey Jr)
     removeMenuSelections: function(elements){
         for(var element in elements){
@@ -122,52 +122,52 @@ var view = {
             elements[element].classList.remove("active");
         }
     },
-    
+
     //Little fix for spaces in href links
     fixUrl: function(value){
         return value.replace(/ /g, "%20");
     },
-    
+
     //Receive a movie, load the detail info about it
     loadMovieDetail: function(movie){
 
         var self = view;
         var genreURL = view.safe_tags(self.fixUrl(movie.genre));
         var movieDetailStr = "";
-        
+
         // Add detail label
         movieDetailStr += view.createGenreLabel(movie.genre);
-        
+
         document.getElementById("movieDetailIcon").innerHTML = movieDetailStr;
         document.getElementById("detailHeader").innerHTML = view.safe_tags(movie.name);
-        
+
         document.getElementById("movieDetailRating").innerHTML = `<i class="fa fa-star" aria-hidden="true"></i>`+movie.rating;
-        
-        
+
+
         // Add the list of actors from this movie
         view.addActorsList(movie.actors);
 
     },
-    
+
     // Receive a list of actors, create a list
     addActorsList : function(actors){
         var actorList = document.getElementById("actorList");
         var movieActors = "";
-        
+
         //Loop through each actor, sent to get a item created
         for(var actor in actors){
             movieActors+= view.appendActor(actors[actor]);
         }
         actorList.innerHTML = movieActors;
     },
-    
+
     // Receive a actor, create a item for it
     appendActor: function(actor){
         var fixedUrl = this.fixUrl(actor.name);
         return `
             <div class = "item">
-                <img class="ui avatar image" src="https://marvel-browser-joelfieldcode.c9users.io/tom.jpg">
-                
+                <img class="ui avatar image" src="tom.jpg">
+
                 <div class="content">
     		      <a href = "/actor/`+view.safe_tags(fixedUrl)+`">
     		        <div class="header">`+view.safe_tags(actor.name)+`</div>
@@ -177,14 +177,14 @@ var view = {
             </div>
         `;
     },
-    
+
     // Receive a genre, load the detail info for it
     loadGenreDetail: function(genre){
         document.getElementById("detailHeader").innerHTML = view.safe_tags(genre.name);
-        
+
         // Add all the movies from this genre
         view.addMovies(genre.movies);
-        
+
         // Hacky fix because of the JSON structure my API is serving. I am basically just converting the object structure back into an array of actors
         var actorsArray = [];
         for(var actorKey in genre.actors){
@@ -193,18 +193,18 @@ var view = {
                 bio: genre.actors[actorKey].bio
             });
         }
-        
+
         // Add all the actors from this genre
         view.addActorsList(actorsArray);
     },
-    
+
     // Receive actor, load detail view for it
     loadActorDetail: function(actor){
-        
+
         document.getElementById("detailHeader").innerHTML = view.safe_tags(actor.info.name);
 	 	document.getElementById("actorAge").innerHTML = "Age: "+actor.info.age;
 	 	document.getElementById("actorBio").innerHTML = view.safe_tags(actor.info.bio);
-	 	
+
 	 	// Add all the actor's movies
         view.addMovies(actor.movies);
     },

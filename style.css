@@ -71,7 +71,6 @@ i.fa.fa-film{
 }
 .actors{
     margin-left: 10px;
-    display: none;
     margin-top: 20px;
     margin-bottom: 5%;
 }
@@ -83,7 +82,6 @@ i.fa.fa-film{
 }
 .genres{
     margin-left: 10px;
-    display: none;
 }
 .movies{
     margin-top: 20px;
@@ -104,7 +102,7 @@ i.fa.fa-film{
     margin-top: 50px;
 }
 #movieDetailIcon{
-    display: none;
+
 }
 .Site {
   display: flex;
@@ -117,7 +115,7 @@ i.fa.fa-film{
 }
 .ui.search{
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-top: 70px;
 }
 @media (max-width: 600px) {
   .column{
