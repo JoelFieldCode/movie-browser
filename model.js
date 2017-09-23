@@ -29,6 +29,10 @@ var mainController = new Vue({
 
   events: {
 
+    movie_added: function(){
+      this.getMovies();
+    },
+
     openModal: function(modalForm){
       this.showModal = true;
       this.modalForm = modalForm;
