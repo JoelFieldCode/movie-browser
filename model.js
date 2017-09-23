@@ -3,12 +3,25 @@ Vue.component('movie-component', movieComponent);
 Vue.component('actor-component', actorComponent);
 Vue.component('genre-component', genreComponent);
 
+Vue.component('modal', {
+  template: '#modal-template',
+  props: ['show'],
+  methods: {
+    savePost: function () {
+      // Some save logic goes here...
+
+      this.$emit('close');
+    }
+  }
+});
+
 var mainController = new Vue({
   el: "#main-controller",
 
   data: function(){
     return {
       movies: [],
+      showModal: false,
       searchFilter: "",
       actors: [],
       genres: [],
@@ -18,6 +31,16 @@ var mainController = new Vue({
       detailGenre: {},
       showing: "movies",
     }
+  },
+
+  events: {
+
+    openModal: function(){
+      console.log("here");
+      this.showModal = true;
+      console.log(this.showModal);
+    }
+
   },
 
   computed: {

@@ -15,6 +15,13 @@ var movieComponent = Vue.extend({
 
   template: `
 
+     <div class = "modal-config-container">
+       <!--
+       <modal :show="showModal" @close="showModal = false"></modal>
+       -->
+       <button class = "ui positive basic button" id="show-modal" @click="$dispatch('openModal')">Add Movie</button>
+     </div>
+
       <div class="item">
 
         <div class="ui small image">
