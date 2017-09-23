@@ -12,9 +12,10 @@
 
   <!-- template for the modal component -->
 
-<script type="x/template" id="modal-template">
-    <transition name="modal">
-        <div class="modal-mask" v-show="showModal">
+<!--
+<script type="x/template" id="modal-template" :show="showModal">
+    <transition name="modal" :show="showModal">
+        <div class="modal-mask" v-show="show">
             <div class="modal-container">
                 <div class="modal-header">
                     <h3>New Post</h3>
@@ -38,6 +39,12 @@
         </div>
     </transition>
 </script>
+
+-->
+
+  <modal :show="showModal" :modal_form="modalForm">
+
+  </modal>
 
   <main class="Site-content">
 
@@ -73,6 +80,10 @@
 
   	 <div class = "movies" v-show = "showing === 'movies'">
 
+     <div class = "modal-config-container">
+       <button class = "ui positive basic button" id="show-modal" @click="$dispatch('openModal','movie')">Add Movie</button>
+     </div>
+
   	 	<h3 class="ui header" id = "movieListHeader"> Movies</h3>
 
   	 	<div class="ui divided items" id = "movieListItemContainer">
@@ -86,6 +97,9 @@
 
   	<div class = "actors" v-show = "showing === 'actors'">
 
+      <div class = "modal-config-container">
+        <button class = "ui positive basic button" id="show-modal" @click="$dispatch('openModal','actor')">Add Actor</button>
+      </div>
   		<h3 class="ui header" id = "actorListHeader"></h3>
 
 
@@ -99,6 +113,11 @@
   	</div>
 
     <div class="ui horizontal list" id = "genreList" v-show = "showing === 'genres'">
+
+      <div class = "modal-config-container">
+        <button class = "ui positive basic button" id="show-modal" @click="$dispatch('openModal','genre')">Add Genre</button>
+      </div>
+
       <template v-for="genre in genres | filterBy searchFilter">
         <genre-component :genre="genre" detail="false">
 
@@ -141,6 +160,10 @@
 <script src = "movieComponent.js"></script>
 <script src = "actorComponent.js"></script>
 <script src = "genreComponent.js"></script>
+<script src = "modalComponent.js"></script>
+<script src = "movieAdder.js"></script>
+<script src = "actorAdder.js"></script>
+<script src = "genreAdder.js"></script>
 <script src = "model.js"></script>
 <script src = "database.js"></script>
 <script src = "controller.js"></script>

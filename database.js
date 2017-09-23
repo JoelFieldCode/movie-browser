@@ -30,6 +30,15 @@ var database = {
       });
     },
 
+    addMovie: function(formData, callback){
+      console.log(formData);
+      axios.post(auth.addMovie,formData)
+        .then(callback)
+        .catch(function(error){
+          this.dealWithError(error)
+        }.bind(this));
+    },
+
     // Get a specific movie (by using the name ID) and it's relationships from the API
     getMovie: function(id){
       axios.get(auth.allMovies+'/'+id)

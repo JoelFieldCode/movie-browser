@@ -2,18 +2,11 @@
 Vue.component('movie-component', movieComponent);
 Vue.component('actor-component', actorComponent);
 Vue.component('genre-component', genreComponent);
+Vue.component('movie-adder', movieAdder);
+Vue.component('actor-adder', actorAdder);
+Vue.component('genre-adder', genreAdder);
 
-Vue.component('modal', {
-  template: '#modal-template',
-  props: ['show'],
-  methods: {
-    savePost: function () {
-      // Some save logic goes here...
-
-      this.$emit('close');
-    }
-  }
-});
+Vue.component('modal', modalComponent);
 
 var mainController = new Vue({
   el: "#main-controller",
@@ -23,6 +16,7 @@ var mainController = new Vue({
       movies: [],
       showModal: false,
       searchFilter: "",
+      modalForm: "",
       actors: [],
       genres: [],
       showingList: true,
@@ -35,10 +29,15 @@ var mainController = new Vue({
 
   events: {
 
-    openModal: function(){
-      console.log("here");
+    openModal: function(modalForm){
       this.showModal = true;
-      console.log(this.showModal);
+      this.modalForm = modalForm;
+    },
+
+    closeModal: function(){
+
+      this.showModal = false;
+
     }
 
   },
