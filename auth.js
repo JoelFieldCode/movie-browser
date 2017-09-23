@@ -6,4 +6,6 @@ var auth = {
     allMovies: baseURL+"movie", // URL for getting all movies
     allGenres: baseURL+"genre", // URL for getting all genres,
     addMovie: baseURL+"create/movie",
+    addActor: baseURL+"create/actor",
+    addGenre: baseURL+"create/genre",
 };

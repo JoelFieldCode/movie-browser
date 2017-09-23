@@ -33,9 +33,9 @@ var actorComponent = Vue.extend({
 
     <div class = "movies" v-show="detailChecker">
 
-     <h3 class="ui header" id = "movieListHeader"> Movies</h3>
+     <h3 class="ui header" id = "movieListHeader"> {{actor.info.name}}'s movies</h3>
 
-     <div class="ui divided items" id = "movieListItemContainer">
+     <div class="ui link cards" id = "movieListItemContainer">
        <template v-for="movie in actor.movies">
          <movie-component :movie = "movie" detail="false">
 

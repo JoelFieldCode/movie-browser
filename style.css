@@ -4,6 +4,11 @@
 * {
     box-sizing: border-box;
 }
+.modal-config-container{
+  margin-left: 10px;
+}
+
+
 
 .modal-mask {
     position: fixed;
@@ -14,6 +19,12 @@
     height: 100%;
     background-color: rgba(0, 0, 0, .5);
     transition: opacity .3s ease;
+}
+.toast-container{
+  color: #FFF !important;
+}
+.toast-error{
+  color: #FFF !important;
 }
 
 .modal-container {
@@ -139,10 +150,18 @@ i.fa.fa-film{
 .Thriller{
     background-color: #d35400;
 }
+.main-container{
+  margin: 20px;
+  margin-left: 50px;
+}
 .genreLabel {
     display: inline-block;
     padding: 10px;
     border-radius: 25px;
+    color: #FFF !important;
+}
+.genreLabel a {
+  color: #FFF !important;
 }
 #actorList{
     margin-top: 10px;

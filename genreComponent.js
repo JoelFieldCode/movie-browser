@@ -44,7 +44,7 @@ var genreComponent = Vue.extend({
 
      <h3 class="ui header" id = "movieListHeader"> Movies in genre: {{genre.name}}</h3>
 
-     <div class="ui divided items" id = "movieListItemContainer">
+     <div class="ui link cards" id = "movieListItemContainer">
        <template v-for="movie in genre.movies">
          <movie-component :movie = "movie" detail="false">
 

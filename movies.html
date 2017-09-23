@@ -6,41 +6,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel = "stylesheet" href = "style.css">
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"> </script>
 
 <body class="Site" id = "main-controller">
-
-  <!-- template for the modal component -->
-
-<!--
-<script type="x/template" id="modal-template" :show="showModal">
-    <transition name="modal" :show="showModal">
-        <div class="modal-mask" v-show="show">
-            <div class="modal-container">
-                <div class="modal-header">
-                    <h3>New Post</h3>
-                </div>
-                <div class="modal-body">
-                    <label class="form-label">
-                        Title
-                        <input class="form-control">
-                    </label>
-                    <label class="form-label">
-                        Body
-                        <textarea rows="5" class="form-control"></textarea>
-                    </label>
-                </div>
-                <div class="modal-footer text-right">
-                    <button class="modal-default-button" @click="savePost()">
-                        Save
-                    </button>
-                </div>
-            </div>
-        </div>
-    </transition>
-</script>
-
--->
 
   <modal :show="showModal" :modal_form="modalForm">
 
@@ -72,7 +41,7 @@
       </actor-component>
   	</div>
 
-  	<div class = "movieDetail ui divided items" v-show = "showing === 'movie_detail'">
+  	<div class = "movieDetail" v-show = "showing === 'movie_detail'">
       <movie-component :movie = "detailMovie" detail="true">
 
       </movie-component>
@@ -86,7 +55,7 @@
 
   	 	<h3 class="ui header" id = "movieListHeader"> Movies</h3>
 
-  	 	<div class="ui divided items" id = "movieListItemContainer">
+  	 	<div class="ui link cards" id = "movieListItemContainer">
         <template v-for="movie in movies | filterBy searchFilter">
           <movie-component :movie = "movie" detail="false">
 
@@ -153,8 +122,10 @@
 </body>
 
 <script src = "notifi8.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"> </script>
 <script src = "page.js"></script>
 <script src = "auth.js"></script>
 <script src = "mixins.js"> </script>
@@ -166,7 +137,6 @@
 <script src = "actorAdder.js"></script>
 <script src = "genreAdder.js"></script>
 <script src = "model.js"></script>
-<script src = "database.js"></script>
 <script src = "controller.js"></script>
 
 

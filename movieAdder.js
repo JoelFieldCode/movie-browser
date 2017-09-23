@@ -58,7 +58,7 @@ var movieAdder = Vue.extend({
         desc: this.desc
       };
 
-      database.addMovie(formData, function(){
+      mainController.addMovie(formData, function(){
         this.close();
         notific8("Successfully added Movie!");
         this.$dispatch('movie_added');
