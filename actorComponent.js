@@ -31,7 +31,7 @@ var actorComponent = Vue.extend({
         </div>
     </div>
 
-    <div class = "movies" v-show="detailChecker">
+    <div class = "movies" v-if="detailChecker">
 
      <h3 class="ui header" id = "movieListHeader"> {{actor.info.name}}'s movies</h3>
 

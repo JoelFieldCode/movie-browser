@@ -34,7 +34,7 @@ var movieComponent = Vue.extend({
     <div class="extra content">
       <span class="right floated">
         <div class="ui label">
-            <i class="fa fa-star" aria-hidden="true"></i> {{movie.rating}}
+            <i v-for="n in parseFloat(movie.rating)"class="fa fa-star" aria-hidden="true"></i>
         </div>
       </span>
       <span>
@@ -45,7 +45,7 @@ var movieComponent = Vue.extend({
     </div>
     </div>
 
-    <div class = "actors" v-show = "detailChecker">
+    <div class = "actors" v-if = "detailChecker">
 
       <h3 class="ui header" id = "actorListHeader">
         Actors in {{movie.name}}
@@ -58,51 +58,13 @@ var movieComponent = Vue.extend({
           </actor-component>
         </template>
       </div>
+
+      <movie-actor-adder :movie="movie">
+
+      </movie-actor-adder>
+
     </div>
 
-      <!--
-      <div class="item">
-
-
-        <div class="ui small image">
-          <img src="../fake-movie-x-men-in-black.jpg">
-        </div>
-
-        <div class="content">
-
-          <a href = "/movie/{{movie.name}}" class="header"> {{movie.name}}</a>
-
-          <div class="description">
-            <p>
-                {{movie.desc}}
-            </p>
-          </div>
-          <div class="extra">
-            <div class="ui label">
-                <i class="fa fa-star" aria-hidden="true"></i> {{movie.rating}}
-            </div>
-
-            <genre-component :genre="getGenre(movie.genre)" detail="false">
-
-            </genre-component>
-
-        </div>
-      </div>
-    </div>
-
-    <div class = "actors" v-show = "detailChecker">
-
-      <h3 class="ui header" id = "actorListHeader"></h3>
-
-      <div class="ui horizontal list" id = "actorList">
-        <template v-for="actor in movie.actors">
-          <actor-component detail="false" :actor = "actor">
-
-          </actor-component>
-        </template>
-      </div>
-    </div>
-    -->
 
   `
 })

@@ -5,6 +5,7 @@ Vue.component('genre-component', genreComponent);
 Vue.component('movie-adder', movieAdder);
 Vue.component('actor-adder', actorAdder);
 Vue.component('genre-adder', genreAdder);
+Vue.component('movie-actor-adder', movieActorAdder);
 
 toastr.options = {
   "closeButton": false,

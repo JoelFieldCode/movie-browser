@@ -12,12 +12,18 @@ var movieAdder = Vue.extend({
 
           <label class="form-label">
               Genre
-              <input type = "text" v-model="genre" class="form-control">
+              <select class = "ui dropdown" v-model="selectedGenre">
+                <option value = {{genre.name}} v-for="genre in genres">
+                  {{genre.name}}
+                </option>
+              </select>
+
           </label>
 
           <label class="form-label">
               Rating
-              <input type = "text" v-model="rating" class="form-control">
+              <i v-for="n in rating"class="fa fa-star" aria-hidden="true"></i>
+                <input class = "form-control" type="range" v-model="rating" min = "0" max = "5">
           </label>
 
           <label class="form-label">
@@ -44,8 +50,19 @@ var movieAdder = Vue.extend({
   data: function(){
     return {
       name: "",
+      genres: [],
+      selectedGenre: "Action",
+      rating: 3,
       desc: "",
     }
+  },
+
+  ready: function(){
+
+    this.$http.get(auth.allGenres).then(response => {
+      this.genres = response.body
+    }, this.dealWithError);
+
   },
 
   methods: {
@@ -54,14 +71,14 @@ var movieAdder = Vue.extend({
       var formData = {
         name: this.name,
         rating: this.rating,
-        genre: this.genre,
+        genre: this.selectedGenre,
         desc: this.desc
       };
 
       mainController.addMovie(formData, function(){
         this.close();
-        notific8("Successfully added Movie!");
-        this.$dispatch('movie_added');
+        toastr.success(`Added ${this.name}!`)
+        page.redirect('/movie/'+this.name);
       }.bind(this));
     },
 

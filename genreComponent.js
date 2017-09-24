@@ -22,7 +22,7 @@ var genreComponent = Vue.extend({
 
   template: `
 
-    <div class = "item" v-show="!detailChecker">
+    <div class = "item" v-if="!detailChecker">
         <div class = "genreLabel {{genre.name}}">
             <a href = "/genre/{{genre.name}}">
               {{genre.name}}
@@ -30,7 +30,7 @@ var genreComponent = Vue.extend({
           </div>
     </div>
 
-    <div v-show="detailChecker">
+    <div v-if="detailChecker">
       <div class = "item">
           <div class = "genreLabel {{genre.name}}">
               <a href = "/genre/{{genre.name}}">
@@ -40,7 +40,7 @@ var genreComponent = Vue.extend({
       </div>
     </div>
 
-    <div class = "movies" v-show="detailChecker">
+    <div class = "movies" v-if="detailChecker">
 
      <h3 class="ui header" id = "movieListHeader"> Movies in genre: {{genre.name}}</h3>
 
@@ -53,7 +53,7 @@ var genreComponent = Vue.extend({
      </div>
     </div>
 
-    <div class = "actors" v-show="detailChecker">
+    <div class = "actors" v-if="detailChecker">
 
       <h3 class="ui header" id = "actorListHeader">
         Actors in genre: {{genre.name}}
