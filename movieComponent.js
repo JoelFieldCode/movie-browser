@@ -59,9 +59,11 @@ var movieComponent = Vue.extend({
         </template>
       </div>
 
+      <!--
       <movie-actor-adder :movie="movie">
 
       </movie-actor-adder>
+      -->
 
     </div>
 

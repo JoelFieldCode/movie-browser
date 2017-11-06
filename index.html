@@ -84,9 +84,9 @@
 
     <div class="ui horizontal list" id = "genreList" v-show = "showing === 'genres'">
 
-      <div class = "modal-config-container">
+      <!-- <div class = "modal-config-container">
         <button class = "ui positive basic button" id="show-modal" @click="$dispatch('openModal','genre')">Add Genre</button>
-      </div>
+      </div> -->
 
       <template v-for="genre in genres | filterBy searchFilter">
         <genre-component :genre="genre" detail="false">

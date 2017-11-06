@@ -1,5 +1,5 @@
 // Route for listing all the movies from the API
-page('/movies.html', function(){
+page('/', function(){
     mainController.getMovies();
     return;
 });
@@ -32,8 +32,7 @@ page('/movie/:id', function(context){
 });
 
 page('*', function(context){
-    console.log(context);
-    page.redirect('/movies.html');
+    page.redirect('/');
 });
 
 page.start({
